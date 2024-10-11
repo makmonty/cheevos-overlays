@@ -90,3 +90,72 @@ export interface UserProfile {
   "UserWallActive": boolean,
   "Motto": string
 }
+
+export interface UserSummary {
+  "User": string,
+  "MemberSince": string,
+  "LastActivity": {
+    "ID": number,
+    "timestamp": string,
+    "lastupdate": string,
+    "activitytype": string,
+    "User": string,
+    "data": string,
+    "data2": string
+  },
+  "RichPresenceMsg": string,
+  "LastGameID": number,
+  "ContribCount": number,
+  "ContribYield": number,
+  "TotalPoints": number,
+  "TotalSoftcorePoints": number,
+  "TotalTruePoints": number,
+  "Permissions": number,
+  "Untracked": number,
+  "ID": number,
+  "UserWallActive": number,
+  "Motto": string,
+  "Rank": number,
+  "RecentlyPlayedCount": number,
+  "RecentlyPlayed": {
+		"GameID": number,
+		"ConsoleID": number,
+		"ConsoleName": string,
+		"Title": string,
+		"ImageIcon": string,
+		"ImageTitle": string,
+		"ImageIngame": string,
+		"ImageBoxArt": string,
+		"LastPlayed": string,
+		"AchievementsTotal": number
+	}[],
+  "Awarded": Record<string, {
+		"NumPossibleAchievements": number,
+		"PossibleScore": number,
+		"NumAchieved": number,
+		"ScoreAchieved": number,
+		"NumAchievedHardcore": number,
+		"ScoreAchievedHardcore": number
+	}>,
+	"RecentAchievements": Record<string, Record<string, Cheevo>>
+  "LastGame": {
+    "ID": number,
+    "Title": string,
+    "ConsoleID": number,
+    "ConsoleName": string,
+    "ForumTopicID": number,
+    "Flags": number,
+    "ImageIcon": string,
+    "ImageTitle": string,
+    "ImageIngame": string,
+    "ImageBoxArt": string,
+    "Publisher": string,
+    "Developer": string,
+    "Genre": string,
+    "Released": string,
+    "IsFinal": number
+  },
+  "UserPic": string,
+  "TotalRanked": number,
+  "Status": string
+}

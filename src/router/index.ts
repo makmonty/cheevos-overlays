@@ -24,11 +24,22 @@ const router = createRouter({
       name: 'game',
       component: () => import('../views/GameInfo.vue')
     },
-    {
-      path: '/game-progress',
-      name: 'game-progress',
-      component: () => import('../views/GameProgress.vue')
-    },
+		{
+			path: '/overlay',
+			name: 'overlay',
+			children: [
+				{
+					path: 'game-progress',
+					name: 'game-progress',
+					component: () => import('../views/overlays/GameProgressView.vue')
+				},
+				{
+					path: 'user-profile',
+					name: 'user-profile',
+					component: () => import('../views/overlays/UserProfileView.vue')
+				},
+			]
+		}
   ]
 })
 

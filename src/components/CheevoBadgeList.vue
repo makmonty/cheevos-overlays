@@ -27,7 +27,7 @@ const {cheevos} = toRefs(props)
 .cheevo-badge-list {
 	list-style: none;
 	margin: 0;
-	padding: 2px;
+	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2px;

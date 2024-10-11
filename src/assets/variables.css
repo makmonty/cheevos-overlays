@@ -1,0 +1,25 @@
+:root {
+	/* Colors */
+	--dark0: #2d3047;
+	--bright0: #f4f4f6;
+	--bright1: #e6e6e9;
+	--blue0: #3993dd;
+	--blue1: #96c6ed;
+	--red0: #ed217c;
+	--red1: #bd0f5d;
+	--grey0: #5d6077;
+	--background-color: var(--dark0);
+	--foreground-color: var(--bright1);
+	--primary-color: var(--red0);
+	--info-color: var(--blue0);
+	--danger-color: var(--red1);
+	--focus-input-border-color: var(--blue1);
+	--anchor-color: var(--primary-color);
+	--disabled-color: var(--grey0);
+
+	/* Borders */
+	--default-border-radius: 4px;
+
+	/* Fonts */
+	--root-font-size: 14px;
+}
