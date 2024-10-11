@@ -32,6 +32,11 @@ const {
 				</ul>
 			</div>
 
+			<section class="howto" target="_blank">
+				<p><a href="https://github.com/makmonty/cheevos-overlays?tab=readme-ov-file#how-to-use"
+					title="How to use the overlays?">How to use?</a></p>
+			</section>
+
 			<section class="disclaimer">
 				<h3>Disclaimer</h3>
 				<p>
@@ -60,7 +65,11 @@ const {
 	width: 100%;
 }
 
+.howto {
+	margin-top: 24px;
+}
+
 .disclaimer {
-	margin-top: 36px;
+	margin-top: 24px;
 }
 </style>
