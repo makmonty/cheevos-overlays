@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { useGetUserProfile } from '@/composables/cheevosApi';
+import { useSettingsStore } from '@/stores/settings';
 
-const {data, run} = useGetUserProfile()
-
-run()
-
+const {profile} = useSettingsStore()
 </script>
 
 <template>
   <main>
 		<p>User profile</p>
-		{{ data }}
+		{{ profile }}
   </main>
 </template>

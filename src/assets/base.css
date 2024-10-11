@@ -1,32 +1,24 @@
 :root {
-	--dark0: #2d3047;
-	--bright0: #f4f4f6;
-	--bright1: #e6e6e9;
-	--blue0: #3993dd;
-	--red0: #ed217c;
-	--red1: #bd0f5d;
-	--background-color: var(--dark0);
-	--foreground-color: var(--bright1);
-	--primary-color: var(--red0);
-	--info-color: var(--blue0);
-	--danger-color: var(--red1);
-	--default-border-radius: 4px;
+	font-size: var(--root-font-size);
 }
 
-:root {
-	font-size: 14px;
+* {
+  font-family: sans;
 }
 
-html, body, #app {
+html, body, #root {
 	height: 100%;
 }
 
 body {
 	margin: 0;
 	padding: 0;
-	font-family: sans;
 }
 
 a {
-	color: var(--primary-color);
+	color: var(--anchor-color);
+}
+
+input {
+	font-size: inherit;
 }

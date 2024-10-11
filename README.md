@@ -5,9 +5,9 @@ A collection of overlays to be used on your [Retroachievements](https://retroach
 All the requests are exclusively towards the Retroachievements API. You can check it in the Network
 tab of the developer tools of your browser.
 
-## Customize configuration
+## Available overlays
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+* Game progress
 
 ## Project Setup
 

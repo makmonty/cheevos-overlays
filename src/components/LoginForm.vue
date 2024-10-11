@@ -4,6 +4,9 @@ import FormGroup from '@/components/FormGroup.vue';
 import { ref } from 'vue';
 import BaseInput from './BaseInput.vue';
 
+const {disabled} = defineProps<{
+	disabled?: boolean
+}>()
 const emit = defineEmits<{
 	(e: 'submit', username: string, webApiKey: string): void
 }>()
@@ -23,10 +26,10 @@ const submit = async () => {
 			<BaseInput type="text" v-model="username" />
 		</FormGroup>
 		<FormGroup label="Web API Key">
-			<BaseInput type="text" v-model="webApiKey" />
+			<BaseInput type="password" v-model="webApiKey" />
 		</FormGroup>
 		<div>
-			<BaseButton type="submit">
+			<BaseButton type="submit" :disabled="disabled">
 				Login
 			</BaseButton>
 		</div>
