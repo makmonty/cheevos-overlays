@@ -14,6 +14,8 @@ All the requests are exclusively against the Retroachievements API. You can chec
 * After logging in, you'll see the catalog of overlays. Choose one.
 * The overlays look like this:
 
+| Progress overlay | Profile overlay |
+| ---------------- | --------------- |
 | ![Progress overlay](docs/images/overlay-progress.png) | ![Profile overlay](docs/images/overlay-profile.png) |
 
 Don't worry about the pinky background. It'll be gone soon.
