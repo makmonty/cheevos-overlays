@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import CheevoBadgeList from '@/components/CheevoBadgeList.vue';
 import OverlayLayout from '@/layouts/OverlayLayout.vue';
 import { useGetGameInfoAndUserProgress } from '@/composables/cheevosApi';
