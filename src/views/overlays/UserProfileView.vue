@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import OverlayLayout from '@/layouts/OverlayLayout.vue';
 import { cheevosMediaBaseUrl } from '@/composables/cheevosApi';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
+import { useOverlayPermanentUrl } from '@/composables/overlays';
 
 const auth = useAuthStore()
 
@@ -11,6 +12,9 @@ const {profile} = storeToRefs(auth)
 
 const rankPercent = computed(() => Math.round(10000 * (profile.value?.Rank || 0) / (profile.value?.TotalRanked
 	|| 1)) / 100)
+
+const {generate: generatePermanentUrl} = useOverlayPermanentUrl('user-profile')
+const permanentUrl = ref(generatePermanentUrl({}))
 </script>
 
 <template>
@@ -28,6 +32,10 @@ const rankPercent = computed(() => Math.round(10000 * (profile.value?.Rank || 0)
 				<div class="rank">Rank: #{{profile.Rank}} of {{profile.TotalRanked}} (Top {{rankPercent}}%)</div>
 			</div>
 		</div>
+
+    <template #options>
+      <a :href="permanentUrl">Permanent URL</a>
+    </template>
   </OverlayLayout>
 </template>
 
