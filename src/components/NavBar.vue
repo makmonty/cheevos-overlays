@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { useSettingsStore } from '@/stores/settings';
 import { useRouter } from 'vue-router';
 import BaseButton from './BaseButton.vue';
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
 
 const router = useRouter()
+const auth = useAuthStore()
 
-const settings = useSettingsStore();
+const {username} = storeToRefs(auth)
+
 const logout = () => {
-	settings.logout()
+	auth.logout()
 	router.push({name: 'home'})
 }
 </script>
@@ -15,8 +18,8 @@ const logout = () => {
 <template>
 	<nav class="nav-bar">
 		<div class="nav-bar-right">
-			<div v-if="settings.username" class="nav-bar-session">
-				<div>Logged in as <span>{{settings.username}}</span></div>
+			<div v-if="username" class="nav-bar-session">
+				<div>Logged in as <span>{{username}}</span></div>
 				<BaseButton variant="text" @click="logout">Logout</BaseButton>
 			</div>
 			<div v-else>

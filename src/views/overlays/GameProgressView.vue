@@ -10,6 +10,7 @@ import IconButton from '@/components/IconButton.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { useOverlayPermanentUrl } from '@/composables/overlays';
 
 const { query } = useRoute()
 
@@ -31,6 +32,11 @@ const sortedCheevos = computed(() =>
 			Math.max(new Date(a1.DateEarned || 0).getTime(), new Date(a1.DateEarnedHardcore || 0).getTime())
 		)
 		: [])
+
+const permanentUrl = useOverlayPermanentUrl('game-progress', {
+  hideLocked: hideLocked.value ? '1' : '',
+  gameId: gameId.value
+})
 
 const onChange = () => {
 	setPreferences({
@@ -58,6 +64,7 @@ watchEffect(fetch)
 		<CheevoBadgeList :cheevos="sortedCheevos" />
 
 		<template #options>
+      <a :href="permanentUrl">Permanent URL</a>
 			<FormGroup>
 				<BaseButton size="large" @click="fetch">Refresh</BaseButton>
 			</FormGroup>

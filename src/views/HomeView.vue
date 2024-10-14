@@ -32,6 +32,14 @@ const {
 				</ul>
 			</div>
 
+			<section class="catalog" target="_blank">
+        <p>
+          <router-link :to="{name: 'catalog'}" title="Go to catalog">
+            Or go straight to the Catalog
+          </router-link>
+        </p>
+			</section>
+
 			<section class="howto" target="_blank">
 				<p><a href="https://github.com/makmonty/cheevos-overlays?tab=readme-ov-file#how-to-use"
 					title="How to use the overlays?">How to use?</a></p>

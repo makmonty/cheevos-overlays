@@ -31,11 +31,10 @@ const onChange = () => {
 </script>
 
 <template>
-	<main
-		class="overlay-layout"
-		:style="{backgroundColor, color: textColor}"
-	>
-		<slot />
+  <main class="overlay-layout">
+    <div class="overlay" :style="{backgroundColor, color: textColor}">
+      <slot />
+    </div>
 		<div v-if="!hideOptions" class="options">
 			<FormGroup label="Background color">
 				<ColorPicker v-model="backgroundColor" @change="onChange" />
@@ -54,13 +53,18 @@ const onChange = () => {
 .overlay-layout {
 	height: 100%;
 	overflow-y: auto;
-	padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
 	color: var(--background-color);
+  flex-grow: 1;
+	padding-bottom: 64px;
 }
 
 .options {
-	margin-top: 64px;
-	padding: 0 32px;
+	padding: 32px;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
