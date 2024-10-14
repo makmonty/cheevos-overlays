@@ -11,6 +11,7 @@ import BaseButton from '@/components/BaseButton.vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useOverlayPermanentUrl } from '@/composables/overlays';
+import { storeToRefs } from 'pinia';
 
 const { query } = useRoute()
 
@@ -18,10 +19,11 @@ const {data, run: fetchProgress} = useGetGameInfoAndUserProgress()
 
 const settings = useSettingsStore()
 const auth = useAuthStore()
+const {preferences} = storeToRefs(settings)
 const {setPreferences} = settings
 
-const hideLocked = ref(!!query.hideLocked || settings.preferences.progress.hideLocked)
-const gameId = ref(query.gameId as string || settings.preferences.global.gameId)
+const hideLocked = ref(!!query.hideLocked || preferences.value.progress.hideLocked)
+const gameId = ref(query.gameId as string || preferences.value.global.gameId)
 
 const sortedCheevos = computed(() =>
 	data.value?.Achievements ?
@@ -33,10 +35,9 @@ const sortedCheevos = computed(() =>
 		)
 		: [])
 
-const permanentUrl = useOverlayPermanentUrl('game-progress', {
-  hideLocked: hideLocked.value ? '1' : '',
-  gameId: gameId.value
-})
+const {generate: generatePermanentUrl} = useOverlayPermanentUrl('game-progress')
+
+const permanentUrl = ref('')
 
 const onChange = () => {
 	setPreferences({
@@ -50,10 +51,16 @@ const onChange = () => {
 			hideLocked: hideLocked.value
 		}
 	})
+
 }
 
 const fetch = () => {
 	fetchProgress(gameId.value, auth.username)
+
+  permanentUrl.value = generatePermanentUrl({
+    hideLocked: hideLocked.value ? '1' : '',
+    gameId: gameId.value,
+  })
 }
 
 watchEffect(fetch)
