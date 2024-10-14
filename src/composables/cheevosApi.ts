@@ -1,11 +1,12 @@
 import {ref} from 'vue'
 import { type GameProgress, type Game, type UserProfile, type UserSummary } from './types'
-import { useSettingsStore } from '@/stores/settings'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
 
 export const cheevosBaseUrl = 'https://retroachievements.org'
 export const cheevosMediaBaseUrl = 'https://media.retroachievements.org'
 
-class CredentialsError extends Error {
+export class CredentialsError extends Error {
 }
 
 const paramsToQueryString = (params: Record<string, string>): string => {
@@ -13,14 +14,6 @@ const paramsToQueryString = (params: Record<string, string>): string => {
 		...prev,
 		`${key}=${value}`
 	], []).join('&')
-}
-
-export const useCheevosAuth = () => {
-	const settings = useSettingsStore()
-
-	return {
-		username: settings.username, webApiKey: settings.webApiKey
-	}
 }
 
 export const useCheevosGet = <DataT>() => {
@@ -31,13 +24,15 @@ export const useCheevosGet = <DataT>() => {
 	const error = ref('')
 
 	const run = async (action: string, params: Record<string, string> = {}) => {
-		const auth = useCheevosAuth()
+		const auth = useAuthStore()
+    const {username, webApiKey} = storeToRefs(auth)
+
 		try {
 			isLoading.value = true
 			const query = paramsToQueryString({
 				...params,
-				y: auth.webApiKey,
-				z: auth.username,
+				y: webApiKey.value || '',
+				z: username.value || '',
 			})
 			const response = await fetch(`${cheevosBaseUrl}/API/API_${action}.php?${query}`)
 			if (!response.ok) {
