@@ -8,14 +8,19 @@ import { useSettingsStore } from '@/stores/settings';
 import BaseInput from '@/components/BaseInput.vue';
 import IconButton from '@/components/IconButton.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const { query } = useRoute()
 
 const {data, run: fetchProgress} = useGetGameInfoAndUserProgress()
 
 const settings = useSettingsStore()
+const auth = useAuthStore()
 const {setPreferences} = settings
 
-const hideLocked = ref(settings.preferences.progress.hideLocked)
-const gameId = ref(settings.preferences.global.gameId)
+const hideLocked = ref(!!query.hideLocked || settings.preferences.progress.hideLocked)
+const gameId = ref(query.gameId as string || settings.preferences.global.gameId)
 
 const sortedCheevos = computed(() =>
 	data.value?.Achievements ?
@@ -42,7 +47,7 @@ const onChange = () => {
 }
 
 const fetch = () => {
-	fetchProgress(settings.preferences.global.gameId, settings.username)
+	fetchProgress(gameId.value, auth.username)
 }
 
 watchEffect(fetch)

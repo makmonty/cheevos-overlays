@@ -1,27 +1,22 @@
-import { useSettingsStore } from "@/stores/settings"
-import { useGetUserSummary } from "./cheevosApi"
-import { ref } from "vue"
-import { computed } from "vue"
+import { ref, computed } from "vue"
+import { useAuthStore } from "@/stores/auth"
+import { storeToRefs } from "pinia"
 
 export const useLogin = ({
 	onLogin
 }: {
 	onLogin?: () => void
 }) => {
-	const {setUsername, setWebApiKey, setProfile} = useSettingsStore()
-	const {
-		run: fetchProfile,
-		data: profile,
-		error: profileError,
-		isLoading: profileIsLoading,
-		isError: profileIsError
-	} = useGetUserSummary()
+  const auth = useAuthStore()
+	const {profile, isLoading, isSuccess, error: authError} = storeToRefs(auth)
+  const {login, setProfile, setCredentials} = auth
+
 	const validationErrors = ref<string[]>([])
 
-	const isError = computed(() => validationErrors.value.length || profileIsError.value)
+	const isError = computed(() => validationErrors.value.length || authError.value)
 	const errors = computed(() => [
 		...validationErrors.value,
-		...(profileError.value ? [profileError.value] : [])
+		...(authError.value ? [authError.value] : [])
 	])
 
 	const submit = async (username: string, webApiKey: string) => {
@@ -37,9 +32,8 @@ export const useLogin = ({
 			return
 		}
 
-		setUsername(username)
-		setWebApiKey(webApiKey)
-		await fetchProfile(username)
+    setCredentials(username, webApiKey)
+    await login()
 
 		if (isError.value) {
 			return
@@ -51,7 +45,8 @@ export const useLogin = ({
 
 	return {
 		userProfile: profile,
-		isLoading: profileIsLoading,
+		isLoading,
+    isSuccess,
 		isError,
 		errors,
 		submit

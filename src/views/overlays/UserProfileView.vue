@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import OverlayLayout from '@/layouts/OverlayLayout.vue';
 import { cheevosMediaBaseUrl } from '@/composables/cheevosApi';
-import { useSettingsStore } from '@/stores/settings';
 import { computed } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from 'pinia';
 
-const settings = useSettingsStore()
+const auth = useAuthStore()
 
-const profile = settings.profile
+const {profile} = storeToRefs(auth)
 
-const rankPercent = computed(() => Math.round(10000 * (profile?.Rank || 0) / (profile?.TotalRanked
+const rankPercent = computed(() => Math.round(10000 * (profile.value?.Rank || 0) / (profile.value?.TotalRanked
 	|| 1)) / 100)
 </script>
 

@@ -3,12 +3,20 @@ import ColorPicker from '@/components/ColorPicker.vue';
 import FormGroup from '@/components/FormGroup.vue';
 import { useSettingsStore } from '@/stores/settings';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
+const {
+  query: {
+    backgroundColor: queryBackgroundColor,
+    textColor: queryTextColor,
+    hideOptions
+  }
+} = useRoute()
 const settings = useSettingsStore()
 const {setPreferences} = settings
 
-const backgroundColor = ref(settings.preferences.global.backgroundColor)
-const textColor = ref(settings.preferences.global.textColor)
+const backgroundColor = ref(queryBackgroundColor && '#' + queryBackgroundColor as string || settings.preferences.global.backgroundColor)
+const textColor = ref(queryTextColor && '#' + queryTextColor as string || settings.preferences.global.textColor)
 
 const onChange = () => {
 	setPreferences({
@@ -28,7 +36,7 @@ const onChange = () => {
 		:style="{backgroundColor, color: textColor}"
 	>
 		<slot />
-		<div class="options">
+		<div v-if="!hideOptions" class="options">
 			<FormGroup label="Background color">
 				<ColorPicker v-model="backgroundColor" @change="onChange" />
 			</FormGroup>

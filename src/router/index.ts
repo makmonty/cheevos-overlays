@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,19 +15,18 @@ const router = createRouter({
       name: 'catalog',
 			component: () => import('../views/CatalogView.vue')
     },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('../views/ProfileView.vue')
-    },
-    {
-      path: '/game',
-      name: 'game',
-      component: () => import('../views/GameInfo.vue')
-    },
 		{
 			path: '/overlay',
 			name: 'overlay',
+      beforeEnter: async (to) => {
+        const {login, setCredentials} = useAuthStore()
+        const {query: {username, webApiKey}} = to
+
+        if (username && webApiKey) {
+          setCredentials(to.query.username as string, to.query.webApiKey as string)
+          return login()
+        }
+      },
 			children: [
 				{
 					path: 'game-progress',
