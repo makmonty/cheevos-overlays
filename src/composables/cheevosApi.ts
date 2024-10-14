@@ -2,18 +2,12 @@ import {ref} from 'vue'
 import { type GameProgress, type Game, type UserProfile, type UserSummary } from './types'
 import { useAuthStore } from '@/stores/auth'
 import { storeToRefs } from 'pinia'
+import { paramsToQueryString } from '@/utils/url'
 
 export const cheevosBaseUrl = 'https://retroachievements.org'
 export const cheevosMediaBaseUrl = 'https://media.retroachievements.org'
 
 export class CredentialsError extends Error {
-}
-
-const paramsToQueryString = (params: Record<string, string>): string => {
-	return Object.entries(params).reduce<string[]>((prev, [key, value]) => [
-		...prev,
-		`${key}=${value}`
-	], []).join('&')
 }
 
 export const useCheevosGet = <DataT>() => {
