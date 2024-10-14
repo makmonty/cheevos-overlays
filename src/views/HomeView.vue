@@ -48,7 +48,8 @@ const {
 			<section class="disclaimer">
 				<h3>Disclaimer</h3>
 				<p>
-					Every communication made is exclusively between the app itself and the Retroachievements API. No other backend is involved. You can check it yourself in the Network tab of the developer tools of your browser. If we ever add some monitoring features, we'll notify it in this	disclaimer.
+					Every communication made is exclusively between the app itself and the Retroachievements
+          API, and a self-hosted monitoring tool. No other backend is involved. You can check it yourself in the Network tab of the developer tools of your browser.
 				</p>
 			</section>
 		</div>
