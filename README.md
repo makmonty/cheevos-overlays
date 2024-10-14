@@ -35,8 +35,9 @@ Example:
 https://overlays.makmonty.com/overlay/game-progress?username=makmonty&webApiKey=yourApiKey&gameId=1
 ```
 
-You may want to check first the [Catalog](https://overlays.makmonty.com/catalog) in your browser to
-grab the URL of the overlay to want.
+You may want to check first the [Catalog](https://overlays.makmonty.com/catalog) in your browser to grab the URL of the overlay to want.
+
+You can also copy the URL from the new option "Permanent URL" available on each overlay, which will contain all the current configuration ready to be used on a Browser capture source.
 
 #### Available params
 
