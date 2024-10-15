@@ -4,81 +4,81 @@ import { useLogin } from '@/composables/auth';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
 
-const router = useRouter()
-const {
-	isLoading,
-	isError,
-	errors,
-	submit
-} = useLogin({
-	onLogin: () => {
-		router.push({name: 'catalog'})
-	}
-})
-
+const router = useRouter();
+const { isLoading, isError, errors, submit } = useLogin({
+  onLogin: () => {
+    router.push({ name: 'catalog' });
+  }
+});
 </script>
 
 <template>
-	<DefaultLayout>
-		<div class="login">
-			<img src="../assets/images/trophy.png" class="icon" />
+  <DefaultLayout data-testid="home-view">
+    <div class="login">
+      <img src="../assets/images/trophy.png" class="icon" />
 
-			<LoginForm @submit="submit" class="login-form" :disabled="isLoading" />
-			<p v-if="isLoading">Loading...</p>
-			<div v-if="isError">
-				<p>Error</p>
-				<ul>
-					<li v-for="(error, index) in errors" :key="index">{{error}}</li>
-				</ul>
-			</div>
+      <LoginForm @submit="submit" class="login-form" :disabled="isLoading" />
+      <p v-if="isLoading">Loading...</p>
+      <div v-if="isError">
+        <p>Error</p>
+        <ul>
+          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+        </ul>
+      </div>
 
-			<section class="catalog" target="_blank">
+      <section class="catalog" target="_blank">
         <p>
-          <router-link :to="{name: 'catalog'}" title="Go to catalog">
+          <router-link :to="{ name: 'catalog' }" title="Go to catalog">
             Or go straight to the Catalog
           </router-link>
         </p>
-			</section>
+      </section>
 
-			<section class="howto" target="_blank">
-				<p><a href="https://github.com/makmonty/cheevos-overlays?tab=readme-ov-file#how-to-use"
-					title="How to use the overlays?">How to use?</a></p>
-			</section>
+      <section class="howto" target="_blank">
+        <p>
+          <a
+            href="https://github.com/makmonty/cheevos-overlays?tab=readme-ov-file#how-to-use"
+            title="How to use the overlays?"
+            >How to use?</a
+          >
+        </p>
+      </section>
 
-			<section class="disclaimer">
-				<h3>Disclaimer</h3>
-				<p>
-					Every communication made is exclusively between the app itself and the Retroachievements
-          API, and a self-hosted monitoring tool. No other backend is involved. You can check it yourself in the Network tab of the developer tools of your browser.
-				</p>
-			</section>
-		</div>
-	</DefaultLayout>
+      <section class="disclaimer">
+        <h3>Disclaimer</h3>
+        <p>
+          Every communication made is exclusively between the app itself and the Retroachievements
+          API, and a self-hosted monitoring tool. No other backend is involved. You can check it
+          yourself in the Network tab of the developer tools of your browser.
+        </p>
+      </section>
+    </div>
+  </DefaultLayout>
 </template>
 
 <style scoped>
 .icon {
-	width: 36px;
-	margin-bottom: 64px;
+  width: 36px;
+  margin-bottom: 64px;
 }
 
 .login {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 240px;
-	margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
+  margin: 0 auto;
 }
 
 .login-form {
-	width: 100%;
+  width: 100%;
 }
 
 .howto {
-	margin-top: 24px;
+  margin-top: 24px;
 }
 
 .disclaimer {
-	margin-top: 24px;
+  margin-top: 24px;
 }
 </style>
