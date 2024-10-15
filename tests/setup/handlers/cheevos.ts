@@ -31,41 +31,12 @@ export const withAuth = (resolver: HttpResponseResolver<never, any, any>) => {
 };
 
 export const handlers = [
-  // http.get('*', async ({ request }) => {
-  //   console.log(request.body);
-  //   const body = await request.json();
-  //   // const body = { y: 'hola' };
-  //   console.log(body);
-  //   if (!body?.y) {
-  //     return HttpResponse.json(
-  //       {
-  //         message: 'Unauthenticated.',
-  //         errors: [
-  //           {
-  //             status: 419,
-  //             code: 'unauthorized',
-  //             title: 'Unauthenticated.'
-  //           }
-  //         ]
-  //       },
-  //       {
-  //         status: 401
-  //       }
-  //     );
-  //   }
-  // }),
   http.get(
     `${cheevosBaseUrl}/API/API_GetGameInfoAndUserProgress.php`,
-    withAuth(() => {
-      console.log('GAME PROGRESS');
-      return HttpResponse.json(progress);
-    })
+    withAuth(() => HttpResponse.json(progress))
   ),
   http.get(
     `${cheevosBaseUrl}/API/API_GetUserSummary.php`,
-    withAuth(() => {
-      console.log('SUMMARY REQUESTED');
-      return HttpResponse.json(userSummary);
-    })
+    withAuth(() => HttpResponse.json(userSummary))
   )
 ];
