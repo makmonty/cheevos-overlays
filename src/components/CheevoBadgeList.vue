@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { cheevosMediaBaseUrl } from '@/composables/cheevosApi';
 import type { Cheevo } from '@/composables/types';
+import { cheevosMediaBaseUrl } from '@/utils/config';
 import { toRefs } from 'vue';
 
 const props = defineProps<{
