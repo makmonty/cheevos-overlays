@@ -1,4 +1,5 @@
 import { cheevosBaseUrl } from '@/utils/config';
+import { queryStringToParams } from '@/utils/url';
 import { http, HttpResponse, type HttpResponseResolver } from 'msw';
 import { progress } from 'tests/mocks/progress';
 import { userSummary } from 'tests/mocks/userSummary';
@@ -6,10 +7,8 @@ import { userSummary } from 'tests/mocks/userSummary';
 export const withAuth = (resolver: HttpResponseResolver<never, any, any>) => {
   return async (input: any) => {
     const { request } = input;
-    const body = (await request.json()) as Record<string, string>;
-    // const body = { y: 'hola' };
-    console.log(body);
-    if (!body?.y) {
+    const query = queryStringToParams(request.url.split('?')[1]);
+    if (!query.y) {
       return HttpResponse.json(
         {
           message: 'Unauthenticated.',
@@ -55,12 +54,18 @@ export const handlers = [
   //     );
   //   }
   // }),
-  http.get(`${cheevosBaseUrl}/API/API_GetGameInfoAndUserProgress.php`, async () => {
-    console.log('GAME PROGRESS');
-    return HttpResponse.json(progress);
-  }),
-  http.get(`${cheevosBaseUrl}/API/API_GetUserSummary.php`, async () => {
-    console.log('SUMMARY REQUESTED');
-    return HttpResponse.json(userSummary);
-  })
+  http.get(
+    `${cheevosBaseUrl}/API/API_GetGameInfoAndUserProgress.php`,
+    withAuth(() => {
+      console.log('GAME PROGRESS');
+      return HttpResponse.json(progress);
+    })
+  ),
+  http.get(
+    `${cheevosBaseUrl}/API/API_GetUserSummary.php`,
+    withAuth(() => {
+      console.log('SUMMARY REQUESTED');
+      return HttpResponse.json(userSummary);
+    })
+  )
 ];

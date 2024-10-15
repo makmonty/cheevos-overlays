@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { setupApp } from 'tests/setup/app';
 import { waitForElement } from 'tests/utils/waitForElement';
+import { flushPromises } from '@vue/test-utils';
 
 describe('Integration | Login Flow', () => {
   const app = setupApp();
@@ -22,10 +23,8 @@ describe('Integration | Login Flow', () => {
     await usernameInput.setValue('testUser');
     await webApiKeyInput.setValue('testWebApiKey');
 
-    // const submitButton = app.wrapper.find('[data-testid="login-form-submit"]');
-    // await submitButton.trigger('click');
-    const form = app.wrapper.find('form');
-    await form.trigger('submit.prevent');
+    const submitButton = app.wrapper.find('[data-testid="login-form-submit"]');
+    await submitButton.trigger('click');
 
     await waitForElement('[data-testid="catalog-view"]', app.wrapper);
 
