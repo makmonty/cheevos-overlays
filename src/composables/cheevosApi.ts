@@ -25,11 +25,7 @@ export const useCheevosGet = <DataT>() => {
         y: webApiKey.value || '',
         z: username.value || ''
       });
-      const response = await fetch(`${cheevosBaseUrl}/API/API_${action}.php?${query}`, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await fetch(`${cheevosBaseUrl}/API/API_${action}.php?${query}`);
       if (!response.ok) {
         if (response.status === 401) {
           throw new CredentialsError('Wrong credentials');
