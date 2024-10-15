@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-const model = defineModel()
+const model = defineModel();
 
 const update = () => {
-	model.value = color.value
-}
+  model.value = color.value;
+};
 
-const color = ref(model)
+const color = ref(model);
 </script>
 
 <template>
-	<input type="color" @input="update" v-model="color" />
+  <input type="color" @input="update" v-model="color" />
 </template>
