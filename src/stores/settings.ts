@@ -42,7 +42,7 @@ export const defaultPreferences: Preferences = {
   global: {
     backgroundColor: '#ff00ff',
     textColor: '#000000',
-    autoRefresh: false,
+    autoRefresh: true,
     autoRefreshFrequency: 5,
     gameId: ''
   },
