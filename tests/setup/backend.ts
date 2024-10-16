@@ -1,22 +1,31 @@
-import { setupServer } from 'msw/node';
+import { setupServer, SetupServerApi } from 'msw/node';
 
 import { handlers } from './handlers';
-import { afterAll, afterEach, beforeEach } from 'vitest';
+import { afterEach, beforeEach } from 'vitest';
 
 const apiServer = setupServer(...handlers);
 
+export interface TestBackendContext {
+  apiServer: SetupServerApi;
+}
+
+declare module 'vitest' {
+  export type BackendContext = TestBackendContext;
+}
+
 export const setupMockApi = () => {
-  beforeEach(() => {
+  beforeEach<TestBackendContext>((context) => {
+    context.apiServer = apiServer;
     apiServer.listen();
   });
 
-  afterEach(() => {
+  afterEach<TestBackendContext>(() => {
     apiServer.resetHandlers();
   });
 
-  afterAll(() => {
-    apiServer.close();
-  });
+  // afterAll<TestBackendContext>(() => {
+  //   apiServer.close();
+  // });
 };
 
 export const setupMockBackend = () => {

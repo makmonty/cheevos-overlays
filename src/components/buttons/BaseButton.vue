@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-const { type = 'button', variant = 'button' } = defineProps<{
+const {
+  type = 'button',
+  variant = 'button',
+  size = 'medium'
+} = defineProps<{
   type?: 'button' | 'submit';
   variant?: 'button' | 'text';
+  size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
 }>();
 
@@ -14,7 +19,7 @@ const emit = defineEmits<{
   <button
     :type="type"
     class="button"
-    :class="{ [`variant-${variant}`]: true }"
+    :class="{ [`variant-${variant}`]: true, [`size-${size}`]: true }"
     :disabled="disabled"
     @click="() => emit('click')"
   >
@@ -28,9 +33,13 @@ const emit = defineEmits<{
   background: var(--info-color);
   border-radius: var(--default-border-radius);
   color: var(--foreground-color);
-  padding: 0 16px;
+  padding: 0 12px;
   height: 30px;
   cursor: pointer;
+
+  &[disabled] {
+    background-color: var(--disabled-color);
+  }
 
   &.variant-text {
     background: none;
@@ -41,8 +50,15 @@ const emit = defineEmits<{
     color: var(--anchor-color);
   }
 
-  &[disabled] {
-    background-color: var(--disabled-color);
+  &.size-large {
+    font-size: 1.2rem;
+    height: 40px;
+    padding: 0 16px;
+  }
+
+  &.size-small {
+    font-size: 0.9rem;
+    height: 26px;
   }
 }
 </style>

@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Component | BaseButton > should render with defaults 1`] = `"<button data-v-4e29ae60="" type="button" class="button variant-button size-medium"></button>"`;
+
+exports[`Component | BaseButton > size > should show a large button when size is large 1`] = `"<button data-v-4e29ae60="" type="button" class="button variant-button size-large"></button>"`;
+
+exports[`Component | BaseButton > size > should show a small button when size is small 1`] = `"<button data-v-4e29ae60="" type="button" class="button variant-button size-small"></button>"`;
+
+exports[`Component | BaseButton > type > should show a submit button when type is submit 1`] = `"<button data-v-4e29ae60="" type="submit" class="button variant-button size-medium"></button>"`;
+
+exports[`Component | BaseButton > variant > should show a text button when variant is text 1`] = `"<button data-v-4e29ae60="" type="button" class="button variant-text size-medium"></button>"`;

@@ -34,6 +34,7 @@ export const useCheevosGet = <DataT>() => {
       }
 
       data.value = await response.json();
+      error.value = '';
       isSuccess.value = true;
       isError.value = false;
     } catch (e) {
@@ -80,6 +81,20 @@ export const useGetUserSummary = () => {
       u: username,
       a: '0'
     });
+  };
+
+  return {
+    ...result,
+    run
+  };
+};
+
+export const useGetCurrentUserSummary = () => {
+  const auth = useAuthStore();
+  const result = useGetUserSummary();
+  const { run: baseRun } = result;
+  const run = () => {
+    return baseRun(auth.username);
   };
 
   return {

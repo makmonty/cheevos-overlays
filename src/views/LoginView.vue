@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoginForm from '@/components/LoginForm.vue';
 import { useLogin } from '@/composables/auth';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import FullScreenLayout from '@/layouts/FullScreenLayout.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -13,15 +13,15 @@ const { isLoading, isError, errors, submit } = useLogin({
 </script>
 
 <template>
-  <DefaultLayout data-testid="home-view">
+  <FullScreenLayout data-testid="home-view">
     <div class="login">
       <img src="../assets/images/trophy.png" class="icon" />
 
-      <LoginForm @submit="submit" class="login-form" :disabled="isLoading" />
+      <LoginForm @submit="submit" class="login-form" :disabled="isLoading" size="large" />
       <p v-if="isLoading">Loading...</p>
       <div v-if="isError">
         <p>Error</p>
-        <ul>
+        <ul data-testid="login-errors">
           <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
       </div>
@@ -53,13 +53,13 @@ const { isLoading, isError, errors, submit } = useLogin({
         </p>
       </section>
     </div>
-  </DefaultLayout>
+  </FullScreenLayout>
 </template>
 
 <style scoped>
 .icon {
   width: 36px;
-  margin-bottom: 64px;
+  margin: 64px 0;
 }
 
 .login {
@@ -72,6 +72,10 @@ const { isLoading, isError, errors, submit } = useLogin({
 
 .login-form {
   width: 100%;
+}
+
+.catalog {
+  margin-top: 16px;
 }
 
 .howto {

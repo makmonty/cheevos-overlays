@@ -4,45 +4,40 @@ import { mount, type VueWrapper } from '@vue/test-utils';
 import { createPinia } from 'pinia';
 import { afterEach, beforeEach } from 'vitest';
 import { createRouter, createWebHistory, type Router } from 'vue-router';
-import { setupMockBackend } from './backend';
+import { setupMockBackend, type TestBackendContext } from './backend';
 
-type Nullable<T> = { [K in keyof T]: T[K] | null };
-
-interface TestAppSetup {
+export interface TestAppContext extends TestBackendContext {
   wrapper: VueWrapper;
   router: Router;
+  container: HTMLDivElement;
+}
+
+declare module 'vitest' {
+  export type AppContext = TestAppContext;
 }
 
 export const setupApp = () => {
   setupMockBackend();
 
-  const app: Nullable<TestAppSetup> = {
-    wrapper: null,
-    router: null
-  };
-  let container: HTMLDivElement;
-
-  beforeEach(() => {
-    app.router = createRouter({
+  beforeEach<TestAppContext>((context) => {
+    context.router = createRouter({
       history: createWebHistory(),
       routes: routes
     });
 
-    container = document.createElement('div');
-    container.id = 'app';
-    document.body.appendChild(container);
+    context.container = document.createElement('div');
+    context.container.id = 'app';
+    document.body.appendChild(context.container);
 
-    app.wrapper = mount(App, {
+    context.wrapper = mount(App, {
       global: {
-        plugins: [app.router, createPinia()]
+        plugins: [context.router, createPinia()]
       },
       attachTo: '#app'
     });
   });
 
-  afterEach(() => {
+  afterEach<TestAppContext>(({ container }) => {
     container?.parentNode?.removeChild(container);
   });
-
-  return app as TestAppSetup;
 };

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import BaseButton from './BaseButton.vue';
+import BaseButton from './buttons/BaseButton.vue';
 import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 
@@ -11,7 +11,7 @@ const { username } = storeToRefs(auth);
 
 const logout = () => {
   auth.logout();
-  router.push({ name: 'home' });
+  router.push({ name: 'login' });
 };
 </script>
 

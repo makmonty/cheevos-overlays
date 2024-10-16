@@ -7,12 +7,15 @@ export const useOverlayPermanentUrl = (overlay: string) => {
   const auth = useAuthStore();
   const settings = useSettingsStore();
 
-  const generate = (params: Record<string, string>) => {
+  const generateUrl = (params: Record<string, string>) => {
     const queryString = paramsToQueryString({
       username: auth.username,
       webApiKey: auth.webApiKey,
       backgroundColor: settings.preferences.global.backgroundColor.substring(1),
       textColor: settings.preferences.global.textColor.substring(1),
+      hideOptions: '1',
+      autoRefresh: settings.preferences.global.autoRefresh ? '1' : '',
+      autoRefreshFrequency: settings.preferences.global.autoRefreshFrequency.toString(),
       ...params
     });
 
@@ -20,6 +23,6 @@ export const useOverlayPermanentUrl = (overlay: string) => {
   };
 
   return {
-    generate
+    generateUrl
   };
 };

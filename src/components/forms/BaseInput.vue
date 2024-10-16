@@ -20,7 +20,7 @@ const onBlur = () => {
 </script>
 
 <template>
-  <div class="input-wrapper" :class="{ [size]: true, focused }">
+  <div class="input-wrapper" :class="{ [`size-${size}`]: true, focused }">
     <input :type="type" v-model="model" class="input" @focus="onFocus" @blur="onBlur" />
     <div v-if="slots.suffix" class="input-suffix">
       <slot name="suffix" />
@@ -41,11 +41,8 @@ const onBlur = () => {
     outline-color: var(--focus-input-border-color);
   }
 
-  &.large {
-    .input {
-      padding: 8px;
-      font-size: 16px;
-    }
+  &.size-large {
+    height: 36px;
   }
 }
 
@@ -54,11 +51,16 @@ const onBlur = () => {
   background: none;
   border: none;
   outline: none;
-  padding: 0 4px;
+  padding: 0 8px;
   font-size: inherit;
 }
 
 .input-suffix {
   color: var(--background-color);
+}
+
+.input-suffix :deep(button) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 </style>
