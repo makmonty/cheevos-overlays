@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
-import CheevoBadgeList from '@/components/CheevoBadgeList.vue';
+import CheevoBadgeList from '@/components/cheevos/CheevoBadgeList.vue';
 import OverlayLayout from '@/layouts/OverlayLayout.vue';
 import { useGetGameInfoAndUserProgress } from '@/composables/cheevosApi';
-import FormGroup from '@/components/FormGroup.vue';
+import FormGroup from '@/components/forms/FormGroup.vue';
 import { useSettingsStore } from '@/stores/settings';
-import BaseInput from '@/components/BaseInput.vue';
-import IconButton from '@/components/IconButton.vue';
-import BaseButton from '@/components/BaseButton.vue';
+import BaseInput from '@/components/forms/BaseInput.vue';
+import IconButton from '@/components/buttons/IconButton.vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useOverlayPermanentUrl } from '@/composables/overlays';
@@ -22,7 +21,9 @@ const auth = useAuthStore();
 const { preferences } = storeToRefs(settings);
 const { setPreferences } = settings;
 
-const hideLocked = ref(!!query.hideLocked || preferences.value.progress.hideLocked);
+const hideLocked = ref(
+  query.hideLocked !== undefined ? !!query.hideLocked : preferences.value.progress.hideLocked
+);
 const gameId = ref((query.gameId as string) || preferences.value.global.gameId);
 
 const sortedCheevos = computed(() =>
@@ -45,7 +46,7 @@ const sortedCheevos = computed(() =>
     : []
 );
 
-const { generate: generatePermanentUrl } = useOverlayPermanentUrl('game-progress');
+const { generateUrl } = useOverlayPermanentUrl('game-progress');
 
 const permanentUrl = ref('');
 
@@ -63,28 +64,30 @@ const onChange = () => {
   });
 };
 
-const fetch = () => {
-  fetchProgress(gameId.value, auth.username);
+const onChangeGameId = () => {
+  onChange();
+  fetch();
+};
 
-  permanentUrl.value = generatePermanentUrl({
+const fetch = () => {
+  fetchProgress(preferences.value.global.gameId, auth.username);
+
+  permanentUrl.value = generateUrl({
     hideLocked: hideLocked.value ? '1' : '',
     gameId: gameId.value
   });
 };
 
-watchEffect(fetch);
+fetch();
 </script>
 
 <template>
-  <OverlayLayout>
+  <OverlayLayout :refresh="fetch">
     <CheevoBadgeList :cheevos="sortedCheevos" />
 
     <template #options>
       <a :href="permanentUrl">Permanent URL</a>
-      <FormGroup>
-        <BaseButton size="large" @click="fetch">Refresh</BaseButton>
-      </FormGroup>
-      <form @submit.prevent="onChange">
+      <form @submit.prevent="onChangeGameId">
         <FormGroup label="Game ID">
           <BaseInput type="text" v-model="gameId">
             <template #suffix>

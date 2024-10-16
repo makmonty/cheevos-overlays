@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth';
 import { storeToRefs } from 'pinia';
 import { useOverlayPermanentUrl } from '@/composables/overlays';
 import { cheevosMediaBaseUrl } from '@/utils/config';
+import { useGetCurrentUserSummary } from '@/composables/cheevosApi';
 
 const auth = useAuthStore();
 
@@ -14,12 +15,14 @@ const rankPercent = computed(
   () => Math.round((10000 * (profile.value?.Rank || 0)) / (profile.value?.TotalRanked || 1)) / 100
 );
 
-const { generate: generatePermanentUrl } = useOverlayPermanentUrl('user-profile');
-const permanentUrl = ref(generatePermanentUrl({}));
+const { generateUrl } = useOverlayPermanentUrl('user-profile');
+const permanentUrl = ref(generateUrl({}));
+
+const { run: fetch } = useGetCurrentUserSummary();
 </script>
 
 <template>
-  <OverlayLayout>
+  <OverlayLayout :refresh="fetch">
     <div v-if="profile" class="profile">
       <img :src="`${cheevosMediaBaseUrl}${profile.UserPic}`" class="image" />
       <div class="info">

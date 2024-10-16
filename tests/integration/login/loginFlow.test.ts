@@ -1,33 +1,76 @@
-import { describe, expect, it } from 'vitest';
-import { setupApp } from 'tests/setup/app';
-import { waitForElement } from 'tests/utils/waitForElement';
-import { flushPromises } from '@vue/test-utils';
+import { describe, test } from 'vitest';
+import { setupApp, type TestAppContext } from 'tests/setup/app';
+import { waitForElement } from 'tests/utils/waitFor';
 
 describe('Integration | Login Flow', () => {
-  const app = setupApp();
+  setupApp();
 
-  it('should show the login form when opening the app', async () => {
-    app.router.push('/');
-    await app.router.isReady();
+  test<TestAppContext>('should show the login form when opening the app', async ({
+    expect,
+    router,
+    wrapper
+  }) => {
+    router.push('/');
+    await router.isReady();
 
-    expect(app.wrapper.html()).toContain('Username');
-    expect(app.wrapper.html()).toContain('Web API Key');
+    expect(wrapper.html()).toContain('Username');
+    expect(wrapper.html()).toContain('Web API Key');
   });
 
-  it('should allow to login', async () => {
-    app.router.push('/');
-    await app.router.isReady();
+  test<TestAppContext>('should login when the credentials are valid', async ({
+    expect,
+    router,
+    wrapper
+  }) => {
+    router.push('/');
+    await router.isReady();
 
-    const usernameInput = app.wrapper.find('[data-testid="login-form-input-username"] input');
-    const webApiKeyInput = app.wrapper.find('[data-testid="login-form-input-webapikey"] input');
+    const usernameInput = wrapper.find('[data-testid="login-form-input-username"] input');
+    const webApiKeyInput = wrapper.find('[data-testid="login-form-input-webapikey"] input');
     await usernameInput.setValue('testUser');
     await webApiKeyInput.setValue('testWebApiKey');
 
-    const submitButton = app.wrapper.find('[data-testid="login-form-submit"]');
+    const submitButton = wrapper.find('[data-testid="login-form-submit"]');
     await submitButton.trigger('click');
 
-    await waitForElement('[data-testid="catalog-view"]', app.wrapper);
+    await waitForElement('[data-testid="catalog-view"]', wrapper);
 
-    expect(app.wrapper.html()).toContain('Game progress');
+    expect(wrapper.html()).toContain('Game progress');
+  });
+
+  test<TestAppContext>('should show an error when the username is missing', async ({
+    expect,
+    router,
+    wrapper
+  }) => {
+    router.push('/');
+    await router.isReady();
+
+    const webApiKeyInput = wrapper.find('[data-testid="login-form-input-webapikey"] input');
+    await webApiKeyInput.setValue('testWebApiKey');
+
+    const submitButton = wrapper.find('[data-testid="login-form-submit"]');
+    await submitButton.trigger('click');
+
+    expect(wrapper.find('[data-testid="login-errors"]').html()).toContain('Username is required');
+  });
+
+  test<TestAppContext>('should show an error when the Web API Key is missing', async ({
+    expect,
+    router,
+    wrapper
+  }) => {
+    router.push('/');
+    await router.isReady();
+
+    const usernameInput = wrapper.find('[data-testid="login-form-input-username"] input');
+    await usernameInput.setValue('testUser');
+
+    const submitButton = wrapper.find('[data-testid="login-form-submit"]');
+    await submitButton.trigger('click');
+
+    expect(wrapper.find('[data-testid="login-errors"]').html()).toContain(
+      'Web API key is required'
+    );
   });
 });
