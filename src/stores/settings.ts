@@ -61,10 +61,6 @@ export const useSettingsStore = defineStore('settings', () => {
     localStorage.setItem(PREFERENCES_STORAGE_KEY, JSON.stringify(newValue));
   }
 
-  const getPreference = (context: keyof Preferences, key: string) => {
-    return preferences.value[context][key] || preferences.value.global[key];
-  };
-
   return {
     preferences,
     setPreferences
