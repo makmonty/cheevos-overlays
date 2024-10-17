@@ -1,16 +1,19 @@
 import { flushPromises, type VueWrapper } from '@vue/test-utils';
 
-export interface WaitForElementOptions {
+export interface WaitForOptions {
   timeout: number;
 }
 
-const defaultOptions = {
+const defaultOptions: WaitForOptions = {
   timeout: 3000
 };
 
 class WaitForTimeoutError extends Error {}
 
-export const waitFor = async (predicate: () => boolean, options = defaultOptions) => {
+export const waitFor = async (
+  predicate: () => boolean,
+  options: WaitForOptions = defaultOptions
+) => {
   const startingTime = new Date().getTime();
   let currentTime = startingTime;
 
@@ -28,7 +31,7 @@ export const waitFor = async (predicate: () => boolean, options = defaultOptions
 export const waitForElement = async (
   selector: string,
   wrapper: VueWrapper,
-  options = defaultOptions
+  options: WaitForOptions = defaultOptions
 ) => {
   try {
     await waitFor(() => wrapper.find(selector).exists(), options);
