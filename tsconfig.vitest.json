@@ -8,5 +8,9 @@
 
     "lib": [],
     "types": ["node", "jsdom"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "tests/*": ["./tests/*"]
+    }
   }
 }
