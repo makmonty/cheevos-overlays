@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const PREFERENCES_STORAGE_KEY = 'PREFERENCES';
 
@@ -52,9 +53,27 @@ export const defaultPreferences: Preferences = {
 };
 
 export const useSettingsStore = defineStore('settings', () => {
+  const { query } = useRoute();
   const storedPreferences =
     JSON.parse(localStorage.getItem(PREFERENCES_STORAGE_KEY) || 'null') || {};
-  const preferences = ref<Preferences>(deepMerge({}, defaultPreferences, storedPreferences));
+  const queryPreferences = {
+    global: {
+      ...(query.backgroundColor ? { backgroundColor: '#' + query.backgroundColor } : {}),
+      ...(query.textColor ? { textColor: '#' + query.textColor } : {}),
+      ...(query.autoRefresh ? { autoRefresh: !!query.autoRefresh } : {}),
+      ...(query.autoRefreshFrequency
+        ? { autoRefreshFrequency: parseInt(query.autoRefreshFrequency as string) }
+        : {}),
+      ...(query.gameId ? { gameId: query.gameId } : {})
+    },
+    progress: {
+      ...(query.hideLocked ? { hideLocked: query.hideLocked } : {})
+    }
+  };
+
+  const preferences = ref<Preferences>(
+    deepMerge({}, defaultPreferences, storedPreferences, queryPreferences)
+  );
 
   function setPreferences(newValue: Preferences) {
     preferences.value = newValue;

@@ -33,7 +33,9 @@ export const withAuth = (resolver: HttpResponseResolver<never, any, any>) => {
 export const handlers = [
   http.get(
     `${cheevosBaseUrl}/API/API_GetGameInfoAndUserProgress.php`,
-    withAuth(() => HttpResponse.json(progress))
+    withAuth(() => {
+      return HttpResponse.json(progress);
+    })
   ),
   http.get(
     `${cheevosBaseUrl}/API/API_GetUserSummary.php`,

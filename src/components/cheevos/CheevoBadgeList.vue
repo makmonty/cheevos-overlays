@@ -12,7 +12,7 @@ const { cheevos } = toRefs(props);
 
 <template>
   <ul class="cheevo-badge-list">
-    <li v-for="cheevo in cheevos" :key="cheevo.ID" class="cheevo-badge">
+    <li v-for="cheevo in cheevos" :key="cheevo.ID" class="cheevo-badge" data-testid="cheevo-item">
       <img
         :src="
           cheevosMediaBaseUrl + `/Badge/${cheevo.BadgeName}${cheevo.DateEarned ? '' : '_lock'}.png`
