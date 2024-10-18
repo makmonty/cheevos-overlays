@@ -4,9 +4,9 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const WEB_API_KEY_STORAGE_KEY = 'WEB_API_KEY';
-const USERNAME_STORAGE_KEY = 'USERNAME';
-const USER_PROFILE_STORAGE_KEY = 'USER_PROFILE';
+export const WEB_API_KEY_STORAGE_KEY = 'WEB_API_KEY';
+export const USERNAME_STORAGE_KEY = 'USERNAME';
+export const USER_PROFILE_STORAGE_KEY = 'USER_PROFILE';
 
 export const useAuthStore = defineStore('auth', () => {
   const { query } = useRoute();

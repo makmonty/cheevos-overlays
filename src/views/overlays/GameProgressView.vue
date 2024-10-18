@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import CheevoBadgeList from '@/components/cheevos/CheevoBadgeList.vue';
 import OverlayLayout from '@/layouts/OverlayLayout.vue';
 import { useGetGameInfoAndUserProgress } from '@/composables/cheevosApi';
@@ -7,12 +7,9 @@ import FormGroup from '@/components/forms/FormGroup.vue';
 import { useSettingsStore } from '@/stores/settings';
 import BaseInput from '@/components/forms/BaseInput.vue';
 import IconButton from '@/components/buttons/IconButton.vue';
-import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useOverlayPermanentUrl } from '@/composables/overlays';
 import { storeToRefs } from 'pinia';
-
-const { query } = useRoute();
 
 const { data, run: fetchProgress } = useGetGameInfoAndUserProgress();
 
@@ -21,10 +18,8 @@ const auth = useAuthStore();
 const { preferences } = storeToRefs(settings);
 const { setPreferences } = settings;
 
-const hideLocked = ref(
-  query.hideLocked !== undefined ? !!query.hideLocked : preferences.value.progress.hideLocked
-);
-const gameId = ref((query.gameId as string) || preferences.value.global.gameId);
+const hideLocked = ref(preferences.value.progress.hideLocked);
+const gameId = ref(preferences.value.global.gameId);
 
 const sortedCheevos = computed(() =>
   data.value?.Achievements

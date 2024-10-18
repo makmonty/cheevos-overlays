@@ -2,7 +2,7 @@ import { describe, test } from 'vitest';
 import { setupApp, type TestAppContext } from 'tests/setup/app';
 import { waitForElement } from 'tests/utils/waitFor';
 
-describe('Integration | Login Flow', () => {
+describe('Integration | Auth | Login Flow', () => {
   setupApp();
 
   test<TestAppContext>('should show the login form when opening the app', async ({

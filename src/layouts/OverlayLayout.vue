@@ -12,25 +12,14 @@ const { refresh } = defineProps<{
 }>();
 
 const {
-  query: {
-    backgroundColor: queryBackgroundColor,
-    textColor: queryTextColor,
-    autoRefresh: queryAutoRefresh,
-    autoRefreshFrequency: queryAutoRefreshFrequency,
-    hideOptions
-  }
+  query: { hideOptions }
 } = useRoute();
 const settings = useSettingsStore();
 const { setPreferences } = settings;
 
 // Colors
-const backgroundColor = ref(
-  (queryBackgroundColor && (('#' + queryBackgroundColor) as string)) ||
-    settings.preferences.global.backgroundColor
-);
-const textColor = ref(
-  (queryTextColor && (('#' + queryTextColor) as string)) || settings.preferences.global.textColor
-);
+const backgroundColor = ref(settings.preferences.global.backgroundColor);
+const textColor = ref(settings.preferences.global.textColor);
 
 // Auto refresh
 let refreshTimeout: any;
@@ -42,14 +31,9 @@ const startRefreshTimeout = () => {
 };
 const clearRefreshTimeout = () => clearInterval(refreshTimeout);
 
-const autoRefresh = ref(
-  queryAutoRefresh !== undefined ? !!queryAutoRefresh : settings.preferences.global.autoRefresh
-);
+const autoRefresh = ref(settings.preferences.global.autoRefresh);
 
-const autoRefreshFrequency = ref(
-  parseInt((queryAutoRefreshFrequency as string) || '0') ||
-    settings.preferences.global.autoRefreshFrequency
-);
+const autoRefreshFrequency = ref(settings.preferences.global.autoRefreshFrequency);
 
 if (autoRefresh.value) {
   startRefreshTimeout();
