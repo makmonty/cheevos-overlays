@@ -15,7 +15,7 @@ All the requests are exclusively against the Retroachievements API. You can chec
 
 ## How to use
 
-You can use the app in two different ways: Logging in or with query params. The first provides
+You can use the app in two different ways: Logging in or through query parameters. The first provides
 better UX, and the second is more convenient for using Browser capture source in [OBS](https://obsproject.com) or any other
 software that provides similar functionality.
 
@@ -37,7 +37,7 @@ https://overlays.makmonty.com/overlay/game-progress?username=makmonty&webApiKey=
 
 You may want to check first the [Catalog](https://overlays.makmonty.com/catalog) in your browser to grab the URL of the overlay to want.
 
-You can also copy the URL from the new option "Permanent URL" available on each overlay, which will contain all the current configuration ready to be used on a Browser capture source.
+You can also copy the URL from the option "Permanent URL" available on each overlay, which will contain all the current configuration ready to be used on a Browser capture source.
 
 #### Available params
 
