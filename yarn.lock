@@ -3741,7 +3741,7 @@ __metadata:
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/e88a0622abad3572904a1b873f1049629dbaa5698294050eab0c53a1be5a01fc096cb0d410506123511d57161d03e55df1e8bac27b24d64e341173245b902f6c
+  checksum: 10/00504c01ee42d470c23495426af07512e25e6546bce7e24572e72a9ca2e6b2e9bea63de4286c3cfea644874da1467dcfca23f4f98f7caf20f8b03c0213bb6837
   languageName: node
   linkType: hard
 
