@@ -17,6 +17,10 @@ const logout = () => {
 
 <template>
   <nav class="nav-bar">
+    <div class="nav-bar-left">
+      <img src="../assets/images/trophy.png" alt="🏆" class="nav-icon" />
+      <span>Retroachievements overlays</span>
+    </div>
     <div class="nav-bar-right">
       <div v-if="username" class="nav-bar-session">
         <div>
@@ -36,19 +40,28 @@ const logout = () => {
   height: 32px;
   display: flex;
   align-items: center;
+  padding: 0 16px;
 }
 
+.nav-bar-left,
 .nav-bar-right {
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 100%;
+}
+
+.nav-bar-right {
   margin-left: auto;
-  padding-right: 16px;
 }
 
 .nav-bar-session {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.nav-icon {
+  height: 20px;
 }
 </style>

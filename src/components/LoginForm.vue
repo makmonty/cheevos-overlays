@@ -30,7 +30,11 @@ const submit = async () => {
         data-testid="login-form-input-username"
       />
     </FormGroup>
-    <FormGroup label="Web API Key" :size="size">
+    <FormGroup
+      label="Web API Key"
+      :size="size"
+      description="Find it <a href='https://retroachievements.org/settings'>here</a>"
+    >
       <BaseInput
         type="password"
         v-model="webApiKey"

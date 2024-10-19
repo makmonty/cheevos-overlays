@@ -16,6 +16,7 @@ const { isLoading, isError, errors, submit } = useLogin({
   <FullScreenLayout data-testid="home-view">
     <div class="login">
       <img src="../assets/images/trophy.png" class="icon" />
+      <h1 class="login-title">Retroachievements overlays</h1>
 
       <LoginForm @submit="submit" class="login-form" :disabled="isLoading" size="large" />
       <p v-if="isLoading">Loading...</p>
@@ -25,14 +26,6 @@ const { isLoading, isError, errors, submit } = useLogin({
           <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
       </div>
-
-      <section class="catalog" target="_blank">
-        <p>
-          <router-link :to="{ name: 'catalog' }" title="Go to catalog">
-            Or go straight to the Catalog
-          </router-link>
-        </p>
-      </section>
 
       <section class="howto" target="_blank">
         <p>
@@ -59,7 +52,15 @@ const { isLoading, isError, errors, submit } = useLogin({
 <style scoped>
 .icon {
   width: 36px;
-  margin: 64px 0;
+  margin: 64px 0 32px 0;
+}
+
+.login-title {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 32px;
+  padding: 0;
+  font-size: 1.4rem;
 }
 
 .login {
