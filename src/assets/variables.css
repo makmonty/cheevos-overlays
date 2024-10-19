@@ -24,4 +24,7 @@
 
 	/* Fonts */
 	--root-font-size: 14px;
+
+  /* Nav */
+  --nav-bar-padding: 16px;
 }

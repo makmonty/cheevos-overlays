@@ -37,10 +37,10 @@ const logout = () => {
 
 <style scoped>
 .nav-bar {
-  height: 32px;
+  height: 48px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 var(--nav-bar-padding);
 }
 
 .nav-bar-left,
@@ -62,6 +62,6 @@ const logout = () => {
 }
 
 .nav-icon {
-  height: 20px;
+  height: 16px;
 }
 </style>

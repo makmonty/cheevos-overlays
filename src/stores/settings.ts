@@ -4,17 +4,31 @@ import { useRoute } from 'vue-router';
 
 const PREFERENCES_STORAGE_KEY = 'PREFERENCES';
 
+interface GlobalPreferences {
+  backgroundColor: string;
+  textColor: string;
+  gameId: string;
+  autoRefresh: boolean;
+  autoRefreshFrequency: number;
+}
+
+interface ProgressPreferences {
+  hideLocked: boolean;
+}
+
+interface ProfilePreferences {
+  avatarScale: number;
+  hideMotto: boolean;
+  hideRank: boolean;
+  hidePoints: boolean;
+  hideAvatar: boolean;
+  hideUsername: boolean;
+}
+
 interface Preferences {
-  global: {
-    backgroundColor: string;
-    textColor: string;
-    gameId: string;
-    autoRefresh: boolean;
-    autoRefreshFrequency: number;
-  };
-  progress: {
-    hideLocked: boolean;
-  };
+  global: GlobalPreferences;
+  progress: ProgressPreferences;
+  profile: ProfilePreferences;
 }
 
 function isObject(item: any) {
@@ -49,6 +63,14 @@ export const defaultPreferences: Preferences = {
   },
   progress: {
     hideLocked: false
+  },
+  profile: {
+    avatarScale: 1,
+    hideMotto: false,
+    hideRank: false,
+    hidePoints: false,
+    hideAvatar: false,
+    hideUsername: false
   }
 };
 
@@ -68,6 +90,14 @@ export const useSettingsStore = defineStore('settings', () => {
     },
     progress: {
       ...(query.hideLocked ? { hideLocked: query.hideLocked } : {})
+    },
+    profile: {
+      ...(query.avatarScale ? { avatarScale: parseInt(query.avatarScale as string) } : {}),
+      ...(query.hideMotto ? { hideMotto: !!query.hideMotto } : {}),
+      ...(query.hideRank ? { hideRank: !!query.hideRank } : {}),
+      ...(query.hidePoints ? { hidePoints: !!query.hidePoints } : {}),
+      ...(query.hideAvatar ? { hideAvatar: !!query.hideAvatar } : {}),
+      ...(query.hideUsername ? { hideUsername: !!query.hideUsername } : {})
     }
   };
 
