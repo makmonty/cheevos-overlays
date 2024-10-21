@@ -13,7 +13,7 @@ const { isLoading, isError, errors, submit } = useLogin({
 </script>
 
 <template>
-  <FullScreenLayout data-testid="home-view">
+  <FullScreenLayout data-testid="login-view">
     <div class="login">
       <img src="../assets/images/trophy.png" class="icon" />
       <h1 class="login-title">Retroachievements overlays</h1>
