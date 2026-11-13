@@ -33,7 +33,7 @@ const submit = async () => {
     <FormGroup
       label="Web API Key"
       :size="size"
-      description="Find it <a href='https://retroachievements.org/settings'>here</a>"
+      description="Find it <a href='https://retroachievements.org/settings?tab=applications'>here</a>"
     >
       <BaseInput
         type="password"

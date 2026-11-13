@@ -9,7 +9,6 @@ import { useGetCurrentUserSummary } from '@/composables/cheevosApi';
 import { useSettingsStore } from '@/stores/settings';
 import FormGroup from '@/components/forms/FormGroup.vue';
 import BaseInput from '@/components/forms/BaseInput.vue';
-import BaseButton from '@/components/buttons/BaseButton.vue';
 
 const auth = useAuthStore();
 const settings = useSettingsStore();
@@ -60,12 +59,8 @@ const onChange = () => {
 <template>
   <OverlayLayout :refresh="fetch">
     <div v-if="profile" class="profile">
-      <img
-        v-if="!hideAvatar"
-        :src="`${cheevosMediaBaseUrl}${profile.UserPic}`"
-        :style="{ width: `calc(var(--avatar-default-size) * ${preferences.profile.avatarScale})` }"
-        class="image"
-      />
+      <img v-if="!hideAvatar" :src="`${cheevosMediaBaseUrl}${profile.UserPic}`"
+        :style="{ width: `calc(var(--avatar-default-size) * ${preferences.profile.avatarScale})` }" class="image" />
       <div class="info">
         <div class="username">
           <span v-if="!hideUsername">{{ profile.User }}</span>
